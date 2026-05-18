@@ -1,4 +1,3 @@
-import fastify from "fastify";
 import { app } from "app";
 import { env } from "env";
 
