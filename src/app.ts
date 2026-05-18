@@ -1,6 +1,23 @@
 import fastify from "fastify";
-import { routes } from "./routes";
+import { userRoutes } from "./routes/usersRoutes";
+import { mealsRoutes } from "./routes/mealsRoutes";
+import cookie from "@fastify/cookie";
+import { AppError } from "./AppError";
 
 export const app = fastify();
 
-app.register(routes);
+app.register(cookie);
+app.register(userRoutes);
+app.register(mealsRoutes);
+
+app.setErrorHandler((error, request, reply) => {
+  if (error instanceof AppError) {
+    return reply.status(error.statusCode).send({
+      message: error.message,
+    });
+  }
+
+  return reply.status(500).send({
+    message: "Internal server error",
+  });
+});

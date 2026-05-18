@@ -9,8 +9,11 @@ describe("create user", () => {
 
   it("should create successfully", async () => {
     const response = await request().post("/users").send(data);
+    const cookies = response.get("Set-Cookie");
+
     expect(response.status).toBe(201);
     expect(response.body.id).toBeTypeOf("string");
+    expect(cookies).toBeDefined();
   });
   it("shouldnt create", async () => {
     await request().post("/users").send(data);
