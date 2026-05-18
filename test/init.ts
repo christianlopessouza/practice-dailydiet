@@ -1,4 +1,4 @@
-import { beforeAll, afterAll } from "vitest";
+import { beforeAll, afterAll, beforeEach } from "vitest";
 import supertestRequest from "supertest";
 import { app } from "../src/app";
 import { knex } from "@/databaseConfig";
@@ -24,6 +24,11 @@ beforeAll(async () => {
 
 afterAll(async () => {
   await app.close();
+});
+
+beforeEach(async () => {
+  await knex("meals").delete();
+  await knex("users").delete();
 });
 
 export const request = () => supertestRequest(app.server);

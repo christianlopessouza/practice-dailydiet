@@ -14,7 +14,7 @@ export async function createMeals(
     meal_time: z.coerce.date(),
   });
 
-  const userId = request.cookies.userId;
+  const userId = request.userId;
 
   const {
     name,

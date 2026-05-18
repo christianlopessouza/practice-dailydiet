@@ -3,21 +3,17 @@ import { knex } from "@/databaseConfig";
 import { setCookie } from "@/setCookie";
 import { FastifyReply, FastifyRequest } from "fastify";
 
-type AuthRequest = FastifyRequest & {
-  cookies: {
-    userId?: string;
-  };
-  headers: {
-    "x-user-id"?: string;
-  };
-};
-
 export async function authCookieMiddleware(
-  request: AuthRequest,
+  request: FastifyRequest,
   reply: FastifyReply,
 ) {
   const cookieUserId = request.cookies.userId;
   const headerUserId = request.headers["x-user-id"];
+
+  if (Array.isArray(headerUserId)) {
+    throw new AppError("Invalid Authorization", 403);
+  }
+
   const userId = headerUserId || cookieUserId;
 
   if (!userId) {
@@ -32,4 +28,5 @@ export async function authCookieMiddleware(
   if (headerUserId && headerUserId !== cookieUserId) {
     setCookie(reply, headerUserId);
   }
+  request.userId = userId;
 }

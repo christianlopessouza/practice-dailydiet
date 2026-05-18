@@ -9,5 +9,6 @@ export default defineConfig({
   },
   test: {
     fileParallelism: false,
+    hookTimeout: 30000,
   },
 });
