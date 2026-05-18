@@ -8,13 +8,13 @@ describe("create user", () => {
   };
 
   it("should create successfully", async () => {
-    const response = await request().post("/user").send(data);
+    const response = await request().post("/users").send(data);
     expect(response.status).toBe(201);
     expect(response.body.id).toBeTypeOf("string");
   });
   it("shouldnt create", async () => {
-    await request().post("/user").send(data);
-    const response = await request().post("/user").send(data);
+    await request().post("/users").send(data);
+    const response = await request().post("/users").send(data);
 
     expect(response.status).toBe(401);
   });
