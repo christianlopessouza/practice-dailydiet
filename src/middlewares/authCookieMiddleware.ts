@@ -1,6 +1,6 @@
-import { AppError } from "@/AppError";
-import { knex } from "@/databaseConfig";
-import { setCookie } from "@/setCookie";
+import { AppError } from "@/errors/AppError";
+import { knex } from "@/utils/databaseConfig";
+import { setCookie } from "@/utils/setCookie";
 import { FastifyReply, FastifyRequest } from "fastify";
 
 export async function authCookieMiddleware(

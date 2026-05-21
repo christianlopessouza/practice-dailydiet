@@ -1,9 +1,9 @@
-import { knex } from "@/databaseConfig";
+import { knex } from "@/utils/databaseConfig";
 import { randomUUID } from "node:crypto";
 import type { FastifyReply, FastifyRequest } from "fastify";
 import z from "zod";
-import { AppError } from "@/AppError";
-import { setCookie } from "@/setCookie";
+import { AppError } from "@/errors/AppError";
+import { setCookie } from "@/utils/setCookie";
 
 export async function createUser(request: FastifyRequest, reply: FastifyReply) {
   const createUserSchema = z.object({
