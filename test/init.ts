@@ -1,7 +1,7 @@
 import { beforeAll, afterAll, beforeEach } from "vitest";
 import supertestRequest from "supertest";
 import { app } from "../src/app";
-import { knex } from "@/databaseConfig";
+import { knex } from "@/utils/databaseConfig";
 import "ts-node/register";
 
 beforeAll(async () => {

@@ -1,4 +1,4 @@
-import { knex } from "@/databaseConfig";
+import { knex } from "@/utils/databaseConfig";
 import type { FastifyReply, FastifyRequest } from "fastify";
 
 export async function fetchMeals(request: FastifyRequest, reply: FastifyReply) {

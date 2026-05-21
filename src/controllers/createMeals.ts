@@ -1,4 +1,4 @@
-import { knex } from "@/databaseConfig";
+import { knex } from "@/utils/databaseConfig";
 import { randomUUID } from "node:crypto";
 import type { FastifyReply, FastifyRequest } from "fastify";
 import z from "zod";
@@ -23,16 +23,17 @@ export async function createMeals(
     meal_time: mealTime,
   } = createMealSchema.parse(request.body);
 
-  const [data] = await knex("meals")
-    .insert({
-      id: randomUUID(),
-      name,
-      description,
-      is_on_diet: isOnDiet,
-      meal_time: mealTime,
-      user_id: userId,
-    })
-    .returning("id");
+  const mealId = randomUUID();
+  await knex("meals").insert({
+    id: mealId,
+    name,
+    description,
+    is_on_diet: isOnDiet,
+    meal_time: mealTime,
+    user_id: userId,
+  });
 
-  return reply.status(201).send(data);
+  return reply.status(201).send({
+    id: mealId,
+  });
 }
